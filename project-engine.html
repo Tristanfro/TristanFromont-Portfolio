@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Title | Tristan Fromont Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .project-detail {
+            max-width: 1000px;
+            margin: 100px auto 80px auto;
+            padding: 0 24px;
+        }
+
+        .project-detail__back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #a0a0a0;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .project-detail__back:hover {
+            color: #ffffff;
+            transform: translateX(-4px);
+        }
+
+        .project-detail__header {
+            margin-bottom: 32px;
+        }
+
+        .project-detail__title {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            line-height: 1.25;
+        }
+
+        .project-detail__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .project-detail__tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #d0d0d0;
+        }
+
+        /* ===== GALERIE / CARROUSEL D'IMAGES ===== */
+        .project-gallery {
+            position: relative;
+            width: 100%;
+            height: 520px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #111116;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .project-gallery__item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            pointer-events: none;
+        }
+
+        .project-gallery__item.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gallery-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 10;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .gallery-nav-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .gallery-nav-btn--prev { left: 18px; }
+        .gallery-nav-btn--next { right: 18px; }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 18px;
+            right: 18px;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 10;
+        }
+
+        /* ===== RAPPORT / CONTENU DU PROJET ===== */
+        .project-report {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 48px;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+        }
+
+        .project-report h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-top: 40px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .project-report h2:first-child {
+            margin-top: 0;
+        }
+
+        .project-report h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-top: 28px;
+            margin-bottom: 14px;
+        }
+
+        .project-report p {
+            margin-bottom: 20px;
+            color: #cccccc;
+            font-size: 1.05rem;
+        }
+
+        .project-report ul, .project-report ol {
+            margin-bottom: 24px;
+            padding-left: 24px;
+        }
+
+        .project-report li {
+            margin-bottom: 10px;
+            color: #cccccc;
+            font-size: 1.05rem;
+        }
+
+        .project-report blockquote {
+            border-left: 3px solid #6366f1;
+            padding-left: 20px;
+            margin: 28px 0;
+            font-style: italic;
+            color: #b0b0b0;
+            background: rgba(255, 255, 255, 0.01);
+            padding-top: 12px;
+            padding-bottom: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .project-report code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .project-detail { margin-top: 80px; padding: 0 16px; }
+            .project-detail__title { font-size: 1.8rem; }
+            .project-gallery { height: 320px; }
+            .project-report { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div class="grid-overlay"></div>
+
+<main class="project-detail">
+
+    <a href="index.html#projects" class="project-detail__back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Back to Projects</span>
+    </a>
+
+    <header class="project-detail__header">
+        <h1 class="project-detail__title">Inline-4 Engine Crankshaft Assembly</h1>
+        <div class="project-detail__tags">
+            <span class="project-detail__tag">SolidWorks</span>
+            <span class="project-detail__tag">CAD Design</span>
+            <span class="project-detail__tag">Kinematics</span>
+            <span class="project-detail__tag">Assembly</span>
+        </div>
+    </header>
+
+    <section class="project-gallery">
+        <button class="gallery-nav-btn gallery-nav-btn--prev" onclick="changeDetailImage(-1)" aria-label="Previous Image">❮</button>
+        <button class="gallery-nav-btn gallery-nav-btn--next" onclick="changeDetailImage(1)" aria-label="Next Image">❯</button>
+
+        <span class="gallery-counter" id="galleryCounter">1/4</span>
+
+        <img src="assets/projects/vilbrequin_principale.png" alt="3D Iso View" class="project-gallery__item active">
+        <img src="assets/projects/vilbrequin_face.png" alt="Front View" class="project-gallery__item">
+        <img src="assets/projects/vilbrequin_cote.png" alt="Side View" class="project-gallery__item">
+        <img src="assets/projects/vilbrequin_haut.png" alt="Top View" class="project-gallery__item">
+    </section>
+
+    <article class="project-report">
+
+        <h2>1. Project Overview & Objectives</h2>
+        <p>
+            This project focuses on the engineering design, kinematic calculation, and volumetric modeling of a complete 4-cylinder in-line engine assembly. The primary objective was to achieve optimal dynamic balancing of rotating masses while respecting real-world manufacturing constraints.
+        </p>
+
+        <h2>2. Methodology & Design Constraints</h2>
+        <p>
+            The modeling process was conducted under <strong>SolidWorks</strong> using a fully parametric CAD approach. Key engineering specifications included:
+        </p>
+        <ul>
+            <li><strong>Bore & Stroke Sizing:</strong> Standard stroke ratio calculated for targeted engine displacement.</li>
+            <li><strong>Mass Balancing:</strong> Web counterweight design calculated to compensate for primary and secondary inertia forces.</li>
+            <li><strong>Material Selection:</strong> Forged steel properties applied for stress analysis compatibility.</li>
+        </ul>
+
+        <blockquote>
+            "Precision in journal alignment and mass distribution directly impacts the overall harmonic stability at high RPM."
+        </blockquote>
+
+        <h2>3. Key Results & Achievements</h2>
+        <p>
+            The final assembly achieved smooth rotational clearance, proper volumetric piston placement, and minimized mass unbalance. Detailed engineering drawings and exploded views were exported for manufacturing analysis.
+        </p>
+
+        <ul>
+            <li>Fully dynamic assembly constraint check passed without collisions.</li>
+            <li>Optimized counterweight volume reduction by 8% without compromising balancing.</li>
+        </ul>
+
+    </article>
+
+</main>
+
+<footer class="footer">
+    <div class="footer__inner">
+        <a href="index.html#projects" class="footer__top">← BACK TO PORTFOLIO</a>
+        <span class="footer__copy">&copy; TRISTAN FROMONT. ALL RIGHTS RESERVED.</span>
+    </div>
+</footer>
+
+<script>
+    function changeDetailImage(step) {
+        const gallery = document.querySelector('.project-gallery');
+        const items = gallery.querySelectorAll('.project-gallery__item');
+        const counter = document.getElementById('galleryCounter');
+        let activeIndex = 0;
+
+        items.forEach((item, index) => {
+            if (item.classList.contains('active')) {
+                activeIndex = index;
+            }
+        });
+
+        items[activeIndex].classList.remove('active');
+        let nextIndex = (activeIndex + step + items.length) % items.length;
+        items[nextIndex].classList.add('active');
+
+        if (counter) {
+            counter.textContent = `${nextIndex + 1}/${items.length}`;
+        }
+    }
+</script>
+
+<script src="js/script.js"></script>
+</body>
+</html>
